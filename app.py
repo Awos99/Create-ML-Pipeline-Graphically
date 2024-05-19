@@ -19,6 +19,30 @@ st.title("Machine Learning!!")
 file = st.file_uploader("Upload a file", type=["csv"])
 
 if file:
+    if st.session_state['demo_123456']:
+        print("Deleting session state uploaded file")
+        key = 'demo_123456'
+        st.session_state = {k: v for k, v in st.session_state.items() if k == key}
+        st.session_state['demo_123456'] = False
+
+if not file:
+    demo_button = st.button("Use Demo Data")
+
+    if demo_button:
+        st.session_state['demo_123456'] = True
+        file = "75.csv"
+        key = 'demo_123456'
+        print("Deleting session state demo button")
+        st.session_state = {k: v for k, v in st.session_state.items() if k == key}
+
+try:
+    if st.session_state['demo_123456']:
+        file = "75.csv"
+except:
+    pass
+
+print(file)
+if file:
     df = pd.read_csv(file, low_memory=False)
     # dropping columns with no observed values
     df = df.dropna(axis=1, how='all')
@@ -30,11 +54,11 @@ if file:
         submit_button = st.form_submit_button(label='Submit')
     
     if submit_button:
-        st.session_state.target_column = target_column
-        st.session_state.predictors = predictors
+        st.session_state['target_column'] = target_column
+        st.session_state['predictors']= predictors
     
     if 'target_column' in st.session_state:
-        target_column = st.session_state.target_column
+        target_column = st.session_state['target_column']
         df = df.dropna(subset=[target_column])
         X = df[predictors]
         y = df[target_column]
