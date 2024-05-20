@@ -1,5 +1,7 @@
 # Streamlit Scikit-Learn Pipeline Builder
 
+![Demo GIF](/static/demo.gif)
+
 ## Overview
 This repository contains a Streamlit application that provides a graphical interface for building and customizing Scikit-Learn pipelines. Designed as a learning tool, it bridges the gap between complex coding requirements and fully automated systems, offering a hands-on approach to understanding machine learning workflows.
 
